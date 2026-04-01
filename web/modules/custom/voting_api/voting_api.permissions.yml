@@ -1,0 +1,17 @@
+access voting api:
+  title: 'Acessar API de Votação'
+  description: 'Permite que aplicações externas obtenham a lista de perguntas e detalhes via API.'
+  restrict access: true
+
+register votes via api:
+  title: 'Registrar votos via API'
+  description: 'Permite o envio de votos através do endpoint POST da API externa.'
+  restrict access: true
+
+view voting results api:
+  title: 'Visualizar resultados via API'
+  description: 'Permite consultar os resultados de uma votação via API, respeitando as configurações individuais.'
+
+vote in cms:
+  title: 'Votar através do CMS'
+  description: 'Permite que usuários logados interajam com o formulário de votação dentro do Drupal.'

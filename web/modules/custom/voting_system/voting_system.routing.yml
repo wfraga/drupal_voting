@@ -1,0 +1,23 @@
+entity.voting_question.settings:
+  path: 'admin/structure/voting-question'
+  defaults:
+    _form: '\Drupal\voting_system\Form\VotingQuestionSettingsForm'
+    _title: 'Voting Question'
+  requirements:
+    _permission: 'administer voting_question'
+
+entity.voting_option.settings:
+  path: 'admin/structure/voting-option'
+  defaults:
+    _form: '\Drupal\voting_system\Form\VotingOptionSettingsForm'
+    _title: 'Voting Option'
+  requirements:
+    _permission: 'administer voting_option'
+
+entity.vote.settings:
+  path: 'admin/structure/vote'
+  defaults:
+    _form: '\Drupal\voting_system\Form\VoteSettingsForm'
+    _title: 'Vote'
+  requirements:
+    _permission: 'administer vote'

@@ -1,0 +1,35 @@
+entity.voting_question.settings:
+  title: 'Voting Question'
+  description: 'Configure a Voting Question entity type.'
+  route_name:  entity.voting_question.settings
+  parent: system.admin_structure
+
+entity.voting_question.collection:
+  title: 'Voting Questions'
+  description: 'List of voting questions.'
+  route_name: entity.voting_question.collection
+  parent: system.admin_content
+
+entity.voting_option.settings:
+  title: 'Voting Option'
+  description: 'Configure a Voting Option entity type.'
+  route_name:  entity.voting_option.settings
+  parent: system.admin_structure
+
+entity.voting_option.collection:
+  title: 'Voting Options'
+  description: 'List of voting options.'
+  route_name: entity.voting_option.collection
+  parent: system.admin_content
+
+entity.vote.settings:
+  title: 'Vote'
+  description: 'Configure a Vote entity type.'
+  route_name:  entity.vote.settings
+  parent: system.admin_structure
+
+entity.vote.collection:
+  title: 'Votes'
+  description: 'List of votes.'
+  route_name: entity.vote.collection
+  parent: system.admin_content

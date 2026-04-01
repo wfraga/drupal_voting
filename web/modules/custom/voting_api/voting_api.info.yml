@@ -1,0 +1,7 @@
+name: 'Voting API'
+type: module
+description: 'Implementation of the core logic for the voting system, including manual API endpoints for external applications and user interaction forms within the CMS.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - voting_system:voting_system

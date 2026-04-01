@@ -1,0 +1,15 @@
+voting_api.questions:
+  path: '/api/v1/questions'
+  defaults:
+    _controller: '\Drupal\voting_api\Controller\VotingApiController::getQuestions'
+    _title: 'Get Questions'
+  requirements:
+    _permission: 'access voting api'
+
+voting_api.question_detail:
+  path: '/api/v1/question/{machine_name}'
+  defaults:
+    _controller: '\Drupal\voting_api\Controller\VotingApiController::getQuestionDetail'
+    _title: 'Get Question Detail'
+  requirements:
+    _permission: 'access voting api'

@@ -1,0 +1,35 @@
+administer voting_question:
+  title: 'Administer voting questions'
+  restrict access: true
+view voting_question:
+  title: 'View voting question'
+edit voting_question:
+  title: 'Edit voting question'
+delete voting_question:
+  title: 'Delete voting question'
+create voting_question:
+  title: 'Create voting question'
+
+administer voting_option:
+  title: 'Administer voting options'
+  restrict access: true
+view voting_option:
+  title: 'View voting option'
+edit voting_option:
+  title: 'Edit voting option'
+delete voting_option:
+  title: 'Delete voting option'
+create voting_option:
+  title: 'Create voting option'
+
+administer vote:
+  title: 'Administer votes'
+  restrict access: true
+view vote:
+  title: 'View vote'
+edit vote:
+  title: 'Edit vote'
+delete vote:
+  title: 'Delete vote'
+create vote:
+  title: 'Create vote'

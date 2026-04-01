@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: voting_option_delete_action
+label: 'Delete voting options'
+type: voting_option
+plugin: entity:delete_action:voting_option
+configuration: {  }

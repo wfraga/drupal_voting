@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: vote_save_action
+label: 'Save votes'
+type: vote
+plugin: entity:save_action:vote
+configuration: {  }

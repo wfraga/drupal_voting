@@ -1,0 +1,156 @@
+# Drupal scaffold (deployable)
+############
+/web/.htaccess
+/web/autoload.php
+/web/index.php
+/web/update.php
+
+# Drupal core
+############
+/web/core
+/web/profiles/contrib
+
+# Drupal blocks
+############
+#/config/block.block*
+/config/mecc_blocks.settings.yml
+config/meac_find_a_doctor.config.yml
+
+# Drupal contrib
+############
+/web/modules/contrib
+/web/themes/contrib
+/drush/Commands/contrib
+
+# Libraries (installed via Composer).
+/web/libraries
+/web/themes/custom/advancedcare_theme/storybook
+/web/modules/montefiore-einstein/
+
+# Montfiore-Einstein modules
+############
+/web/modules/montefiore-einstein
+
+# Built assets
+/web/fonts
+/web/images
+/web/sprites
+
+# Composer vendors
+############
+/vendor
+
+# Node files
+##############
+test/node_modules
+
+# DEPLOY CONTENTS ABOVE - DO NOT REMOVE
+
+# Drupal scaffold
+############
+.editorconfig
+.gitattributes
+/web/.csslintrc
+/web/.eslintignore
+/web/.eslintrc.json
+/web/.ht.router.php
+/web/example.gitignore
+/web/INSTALL.txt
+/web/README.txt
+/web/robots.txt
+/web/web.config
+/web/sites/README.txt
+/web/sites/development.services.yml
+/web/sites/example.settings.local.php
+/web/sites/example.sites.php
+/web/sites/default/default.services.yml
+/web/sites/default/default.settings.php
+/web/modules/README.txt
+/web/profiles/README.txt
+/web/themes/README.txt
+
+# Ignore paths that contain user-generated content.
+############
+*/sites/*/files
+*/sites/*/private
+files/*
+
+# Files specific to local instances
+############
+cached.settings.inc
+web/sites/*/settings.local.php
+
+# Backup files.
+############
+*.orig
+
+# Testing
+############
+.d8testsupport
+ddev.phpunit.xml
+.phplint-cache
+phpcs-report.xml
+phpstan.neon
+remote-ddev.phpunit.xml
+web/sites/simpletest
+
+# Local Development
+############
+**/css/dev
+*.git
+*.codekit*
+.ddev/php/xdebug.ini
+local.phpunit.xml
+settings.ddev.php
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sqlite
+
+# cypress screenshots folder #
+##############################
+test/cypress/screenshots/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs #
+########
+.idea
+.vscode
+
+# Vim generated files #
+######################
+*~
+*.swp
+*.swo
+
+# ------------------------------------------------------------------------------
+# Front-end (Node.js / Tailwind / Sass)
+# ------------------------------------------------------------------------------
+# Ignora dependências do Node em qualquer lugar (raiz ou dentro de temas)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.yarn/cache/
+.yarn/build-state.yml
+.pnp.*

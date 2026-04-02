@@ -1,6 +1,6 @@
-# Drupal 11 Headless Voting System
+# Delivery for "Teste de Sistema de Votação Simples"
 
-This project is a high-performance, headless-ready Voting System built with **Drupal 11** and **PHP 8.3**. It provides both a CMS interface for internal users and a secure, custom RESTful API for external applications.
+This project is the delivery for "" which allows users to vote on questions registered by the administrator.
 
 ## Technical Highlights
 * **Drupal 11 & PHP 8.3**: Optimized for high concurrency and modern performance standards.

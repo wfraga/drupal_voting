@@ -18,8 +18,8 @@ This project is the delivery for "" which allows users to vote on questions regi
 
 1. **Clone the repository:**
 ~~~bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone git@github.com:wfraga/drupal_voting.git
+cd drupal_voting
 ~~~
 
 2. **Start the environment:**

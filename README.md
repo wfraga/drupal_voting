@@ -27,9 +27,14 @@ cd drupal_voting
 lando start
 ~~~
 
-3. **Install Drupal (or import the provided dump):**
+3. **Import DB:**
 ~~~bash
 lando db-import resources/database_dump.sql
+~~~
+
+4. **Install Drupal:**
+~~~bash
+lando composer install
 ~~~
 
 ---

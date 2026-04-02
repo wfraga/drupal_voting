@@ -1,0 +1,19 @@
+uuid: 33ce47ee-1bc8-42a6-81b0-251a545b2d84
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: vote.field_vote_question
+field_name: field_vote_question
+entity_type: vote
+type: entity_reference
+settings:
+  target_type: voting_question
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

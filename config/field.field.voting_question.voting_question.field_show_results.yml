@@ -1,0 +1,22 @@
+uuid: e1a41ee4-0cce-4a27-9dbb-af30af27ab57
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.voting_question.field_show_results
+  module:
+    - voting_system
+id: voting_question.voting_question.field_show_results
+field_name: field_show_results
+entity_type: voting_question
+bundle: voting_question
+label: 'Show results '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

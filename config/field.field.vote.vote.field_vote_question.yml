@@ -1,0 +1,27 @@
+uuid: 58bc847a-622e-40a3-9f30-55c00d74366c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.vote.field_vote_question
+  module:
+    - voting_system
+id: vote.vote.field_vote_question
+field_name: field_vote_question
+entity_type: vote
+bundle: vote
+label: vote_question
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:voting_question'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

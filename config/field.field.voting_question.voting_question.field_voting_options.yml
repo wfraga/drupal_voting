@@ -1,0 +1,27 @@
+uuid: 018c22ea-8cf5-46db-a508-e8e412f8cd89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.voting_question.field_voting_options
+  module:
+    - voting_system
+id: voting_question.voting_question.field_voting_options
+field_name: field_voting_options
+entity_type: voting_question
+bundle: voting_question
+label: 'Voting Options'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:voting_option'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

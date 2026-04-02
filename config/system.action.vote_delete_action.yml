@@ -1,0 +1,13 @@
+uuid: 4a15f154-82ad-4afe-af92-6e07453083e8
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+_core:
+  default_config_hash: XzRmB-WQGOGwij40DtVUm2Cc7fDFfpT2s3BcxSYD-sQ
+id: vote_delete_action
+label: 'Delete votes'
+type: vote
+plugin: 'entity:delete_action:vote'
+configuration: {  }

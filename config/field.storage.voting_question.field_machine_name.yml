@@ -1,0 +1,21 @@
+uuid: d54b05f9-5879-4c38-bd2e-486e32fc2a50
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: voting_question.field_machine_name
+field_name: field_machine_name
+entity_type: voting_question
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

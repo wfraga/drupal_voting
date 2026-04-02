@@ -1,0 +1,13 @@
+uuid: bba0ada4-3dd2-42f2-9537-792a6d8f05e6
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+_core:
+  default_config_hash: KPGUemHDvWcSDw0c632t0leXMuhov1J5DQ8Zhs_B5uo
+id: voting_question_delete_action
+label: 'Delete voting questions'
+type: voting_question
+plugin: 'entity:delete_action:voting_question'
+configuration: {  }

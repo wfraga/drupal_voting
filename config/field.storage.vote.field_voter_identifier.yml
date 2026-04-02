@@ -1,0 +1,21 @@
+uuid: e3e91b26-700f-481e-a6dc-b023608771d2
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: vote.field_voter_identifier
+field_name: field_voter_identifier
+entity_type: vote
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,13 @@
+uuid: 9c5229d1-16cd-4820-bcae-8f20785d7a31
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+_core:
+  default_config_hash: 5sIV_QdP63nxSGl8k1DdJutwLjUaiFjB_vDVwP0sBdA
+id: voting_option_delete_action
+label: 'Delete voting options'
+type: voting_option
+plugin: 'entity:delete_action:voting_option'
+configuration: {  }

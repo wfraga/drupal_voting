@@ -1,0 +1,18 @@
+uuid: 317fead6-307e-4348-906a-9dbcce3c7360
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+id: voting_question.field_show_results
+field_name: field_show_results
+entity_type: voting_question
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

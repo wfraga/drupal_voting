@@ -1,0 +1,13 @@
+uuid: f3c9f092-4dfe-4652-b0d3-a12bfca02aed
+langcode: en
+status: true
+dependencies:
+  module:
+    - voting_system
+_core:
+  default_config_hash: ceRdEbiotG8rSyaTejG2WsoYuew5LPxppGRd-k1dtCs
+id: vote_save_action
+label: 'Save votes'
+type: vote
+plugin: 'entity:save_action:vote'
+configuration: {  }

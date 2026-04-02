@@ -1,0 +1,20 @@
+uuid: d159487e-1877-41c2-a39c-2451d9573158
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.voting_question.field_machine_name
+  module:
+    - voting_system
+id: voting_question.voting_question.field_machine_name
+field_name: field_machine_name
+entity_type: voting_question
+bundle: voting_question
+label: 'Machine Name'
+description: 'Unique identifier for access via API.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

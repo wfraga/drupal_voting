@@ -117,6 +117,6 @@ All essential files for evaluating and running this project are organized within
 
 ## Development Standards
 
-* **Language**: All code documentation, including inline comments, docblocks, and the README, **must be written in English**.
-* **Namespacing**: Follow PSR-4 standards for all custom entity and controller classes.
-* **Type Hinting**: Utilize strict typing and PHP 8.3 features where applicable.
+* **Language**: All code documentation, including inline comments, docblocks, and the README, **were written in English**.
+* **Namespacing**: I'm following PSR-4 standards for all custom entity and controller classes.
+* **Type Hinting**: I'm using strict typing and PHP 8.3 features where applicable.

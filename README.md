@@ -1,6 +1,6 @@
 # Delivery for "Teste de Sistema de Votação Simples"
 
-This project is the delivery for "" which allows users to vote on questions registered by the administrator.
+This project is the delivery for the "Teste de Sistema de Votação Simples", which allows users to vote on questions registered by the administrator.
 
 ## Technical Highlights
 * **Drupal 11 & PHP 8.3**: Optimized for high concurrency and modern performance standards.

@@ -1,0 +1,6 @@
+services:
+  voting_api.api_key_subscriber:
+    class: Drupal\voting_api\EventSubscriber\ApiKeySubscriber
+    arguments: ['@key.repository']
+    tags:
+      - { name: event_subscriber }

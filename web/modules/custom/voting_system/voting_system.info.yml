@@ -2,4 +2,4 @@ name: 'Voting System'
 type: module
 description: 'Simple voting system for testing'
 package: Custom
-core_version_requirement: ^10 || ^11
+core_version_requirement: ">=10"

@@ -1,15 +1,60 @@
-voting_api.questions:
+vvoting_api.questions:
   path: '/api/v1/questions'
   defaults:
     _controller: '\Drupal\voting_api\Controller\VotingApiController::getQuestions'
-    _title: 'Get Questions'
+  methods: [GET]
   requirements:
-    _permission: 'access voting api'
+    _access: 'TRUE'
 
 voting_api.question_detail:
   path: '/api/v1/question/{machine_name}'
   defaults:
     _controller: '\Drupal\voting_api\Controller\VotingApiController::getQuestionDetail'
-    _title: 'Get Question Detail'
+  methods: [GET]
   requirements:
-    _permission: 'access voting api'
+    _access: 'TRUE'
+
+voting_api.register_vote:
+  path: '/api/v1/vote'
+  defaults:
+    _controller: '\Drupal\voting_api\Controller\VotingApiController::registerVote'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+voting_api.results:
+  path: '/api/v1/results/{machine_name}'
+  defaults:
+    _controller: '\Drupal\voting_api\Controller\VotingApiController::getResults'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+voting_api.questions_list_ui:
+  path: '/admin/vote'
+  defaults:
+    _controller: '\Drupal\voting_api\Controller\VotingUiController::listQuestions'
+    _title: 'Available Voting Questions'
+  requirements:
+    _permission: 'vote on questions'
+  options:
+    _admin_route: TRUE
+
+voting_api.vote_form:
+  path: '/admin/vote/{machine_name}'
+  defaults:
+    _form: '\Drupal\voting_api\Form\VotingForm'
+    _title: 'Cast your Vote'
+  requirements:
+    _permission: 'vote on questions'
+  options:
+    _admin_route: TRUE
+
+voting_api.settings:
+  path: '/admin/config/voting-system/settings'
+  defaults:
+    _form: '\Drupal\voting_api\Form\VotingSettingsForm'
+    _title: 'Voting System Settings'
+  requirements:
+    _permission: 'administer site configuration'

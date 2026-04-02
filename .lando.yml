@@ -1,8 +1,8 @@
 name: teste-votacao
-recipe: drupal10
+recipe: drupal11
 config:
-  php: "8.1"
-  drush: ^11
+  php: "8.3"
+  drush: ^13
   composer_version: 2-latest
   webroot: web
   database: mariadb:10.6

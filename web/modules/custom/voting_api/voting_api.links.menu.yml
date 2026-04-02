@@ -1,0 +1,5 @@
+voting_api.settings_menu:
+  title: 'Voting System Settings'
+  description: 'Manage global settings for the voting system.'
+  parent: system.admin_config_system
+  route_name: voting_api.settings

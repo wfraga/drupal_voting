@@ -2,7 +2,7 @@
 
 This project is a high-performance, headless-ready Voting System built with **Drupal 11** and **PHP 8.3**. It provides both a CMS interface for internal users and a secure, custom RESTful API for external applications.
 
-## 🚀 Technical Highlights
+## Technical Highlights
 * **Drupal 11 & PHP 8.3**: Optimized for high concurrency and modern performance standards.
 * **Custom Entities**: Uses fully custom entities (`voting_question`, `voting_option`, `vote`) instead of standard nodes to ensure a lightweight and scalable architecture.
 * **Event-Driven Authentication**: Centralized authentication and error handling via `ApiKeySubscriber`, removing redundancy from controllers.
@@ -10,11 +10,11 @@ This project is a high-performance, headless-ready Voting System built with **Dr
 * **Global Control**: Administrators can instantly pause all voting activities (CMS and API) via a global configuration switch.
 * **Native JSON Responses**: The system ensures that all requests to the `/api/` prefix return JSON, including 404 (Not Found) and 403 (Access Denied) errors.
 
-## 🛠️ Prerequisites
+## Prerequisites
 * [Docker](https://www.docker.com/)
 * [Lando](https://lando.dev/)
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 1. **Clone the repository:**
 ~~~bash
@@ -36,11 +36,11 @@ lando db-import database_dump.sql
 
 ---
 
-## 🛣️ API Reference & Routing
+## API Reference & Routing
 
 The API uses the mandatory `x-api-key` header for all requests under the `/api/v1/` prefix.
 
-### 🌐 RESTful API Endpoints
+### RESTful API Endpoints
 
 | Endpoint | Method | Path Parameters | Description |
 | :--- | :--- | :--- | :--- |
@@ -65,7 +65,7 @@ The API uses the mandatory `x-api-key` header for all requests under the `/api/v
 
 ---
 
-## 🔒 Security & Architecture
+## Security & Architecture
 
 ### High-Performance Reads (Cache API)
 To handle massive spikes in read requests (e.g., thousands of users fetching questions simultaneously), the `GET` endpoints utilize `CacheableJsonResponse`. Responses are cached and tagged with entity metadata (`voting_question_list`, file dependencies, etc.). The cache is automatically invalidated only when an entity is created, updated, or deleted, reducing database load to near zero for read operations.
@@ -87,14 +87,14 @@ The module implements an `ApiKeySubscriber` to intercept requests to the `/api/`
 
 ---
 
-## 📦 Deliverables included in this Repository
+## Deliverables included in this Repository
 
 * **Database Dump**: A `database_dump.sql` file is included in the root directory to quickly spin up the environment with pre-configured questions, options, and a valid API Key.
 * **Postman Collection**: A `Voting_System_API.postman_collection.json` file is available for immediate testing of all external API endpoints.
 
 ---
 
-## 📝 Development Standards
+## Development Standards
 
 * **Language**: All code documentation, including inline comments, docblocks, and the README, **must be written in English**.
 * **Namespacing**: Follow PSR-4 standards for all custom entity and controller classes.

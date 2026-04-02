@@ -4,6 +4,7 @@ namespace Drupal\voting_api\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
@@ -23,13 +24,26 @@ class VotingUiController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The configuration factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a VotingUiController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   * The entity type manager.
+   *   The entity type manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    ConfigFactoryInterface $config_factory
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -37,7 +51,8 @@ class VotingUiController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('config.factory')
     );
   }
 
@@ -45,12 +60,12 @@ class VotingUiController extends ControllerBase {
    * Renders a list of available questions for CMS users to vote on.
    *
    * @return array
-   * A Drupal render array.
+   *   A Drupal render array.
    */
   public function listQuestions(): array {
-
-    // Check global voting status.
-    $is_voting_enabled = \Drupal::config('voting_api.settings')->get('global_voting_enabled') ?? TRUE;
+    // Check global voting status using the injected config factory.
+    $config = $this->configFactory->get('voting_api.settings');
+    $is_voting_enabled = $config->get('global_voting_enabled') ?? TRUE;
 
     if (!$is_voting_enabled) {
       return [
@@ -80,7 +95,9 @@ class VotingUiController extends ControllerBase {
       $machine_name = $question->get('field_machine_name')->value;
 
       // Create a link to the voting form using the machine name.
-      $url = Url::fromRoute('voting_api.vote_form', ['machine_name' => $machine_name]);
+      $url = Url::fromRoute('voting_api.vote_form', [
+        'machine_name' => $machine_name,
+      ]);
       $link = Link::fromTextAndUrl($question->label(), $url)->toString();
 
       $items[] = ['#markup' => $link];

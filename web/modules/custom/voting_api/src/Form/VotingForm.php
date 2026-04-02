@@ -5,6 +5,9 @@ namespace Drupal\voting_api\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\voting_system\Entity\VotingQuestion;
 use Drupal\Core\Render\Markup;
@@ -15,16 +18,73 @@ use Drupal\Component\Utility\Html;
  */
 class VotingForm extends FormBase {
 
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
 
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  /**
+   * The file URL generator service.
+   *
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
+   * The configuration factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The current user service.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUserService;
+
+  /**
+   * Constructs a new VotingForm object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   The file URL generator service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory service.
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   The current user service.
+   */
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    FileUrlGeneratorInterface $file_url_generator,
+    ConfigFactoryInterface $config_factory,
+    AccountProxyInterface $current_user,
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->fileUrlGenerator = $file_url_generator;
+    $this->configFactory = $config_factory;
+    $this->currentUserService = $current_user;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity_type.manager'));
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('file_url_generator'),
+      $container->get('config.factory'),
+      $container->get('current_user')
+    );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'voting_api_vote_form';
   }
@@ -70,23 +130,26 @@ class VotingForm extends FormBase {
         /** @var \Drupal\file\FileInterface $file */
         $file = $option->get('field_image')->entity;
         if ($file) {
-          $image_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+          $image_uri = $file->getFileUri();
+          $image_url = $this->fileUrlGenerator->generateAbsoluteString($image_uri);
           $image_html = '<div style="margin-bottom: 5px;"><img src="' . $image_url . '" alt="' . Html::escape($title) . '" style="max-width: 150px; height: auto; border: 1px solid #ccc; border-radius: 4px;" /></div>';
         }
       }
 
       // Build the structured HTML for the radio button label.
-      $label_html = '<div class="voting-option-wrapper" style="display: inline-block; vertical-align: top; margin-left: 8px; margin-bottom: 15px;">';
+      $wrapper_style = 'display: inline-block; vertical-align: top; margin-left: 8px; margin-bottom: 15px;';
+      $label_html = '<div class="voting-option-wrapper" style="' . $wrapper_style . '">';
       $label_html .= $image_html;
       $label_html .= '<strong style="display: block; font-size: 1.1em;">' . Html::escape($title) . '</strong>';
 
       if (!empty($description)) {
-        // Escaping description to ensure security while allowing basic HTML structure.
-        $label_html .= '<span style="color: #555; font-size: 0.9em; display: block; margin-top: 4px;">' . Html::escape($description) . '</span>';
+        // Escaping description to ensure security while allowing basic HTML.
+        $span_style = 'color: #555; font-size: 0.9em; display: block; margin-top: 4px;';
+        $label_html .= '<span style="' . $span_style . '">' . Html::escape($description) . '</span>';
       }
       $label_html .= '</div>';
 
-      // Use Markup::create() so Drupal renders the HTML safely instead of escaping it as plain text.
+      // Use Markup::create() so Drupal renders HTML safely instead of escaping.
       $options[$option->id()] = Markup::create($label_html);
     }
 
@@ -110,25 +173,26 @@ class VotingForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
     // Check global voting status.
-    $is_voting_enabled = \Drupal::config('voting_api.settings')->get('global_voting_enabled') ?? TRUE;
+    $config = $this->configFactory->get('voting_api.settings');
+    $is_voting_enabled = $config->get('global_voting_enabled') ?? TRUE;
 
     if (!$is_voting_enabled) {
-      return [
-        '#markup' => '<div class="messages messages--warning">' . $this->t('The voting system is currently disabled globally. You cannot cast a vote at this time.') . '</div>',
-      ];
+      $msg = $this->t('The voting system is currently disabled globally. You cannot cast a vote at this time.');
+      // Return early with a warning if voting is disabled.
+      $this->messenger()->addWarning($msg);
+      return;
     }
 
     $question = $form['#question'];
-    $uid = \Drupal::currentUser()->id();
+    $uid = $this->currentUserService->id();
 
-    // Create the Vote entity[cite: 20].
+    // Create the Vote entity.
     $vote = $this->entityTypeManager->getStorage('vote')->create([
       'field_vote_question' => $question->id(),
       'field_vote_option' => $form_state->getValue('vote_option'),
       'uid' => $uid,
-      'field_voter_identifier' => 'cms_user_' . $uid, // Internal identifier.
+      'field_voter_identifier' => 'cms_user_' . $uid,
     ]);
     $vote->save();
 
@@ -139,14 +203,16 @@ class VotingForm extends FormBase {
    * Retrieves the user's vote for a given question.
    *
    * @param int $question_id
-   * The internal ID of the question.
+   *   The internal ID of the question.
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
-   * The vote entity or NULL if the user hasn't voted.
+   *   The vote entity or NULL if the user hasn't voted.
    */
   private function getUserVote(int $question_id) {
-    $uid = \Drupal::currentUser()->id();
-    $query = $this->entityTypeManager->getStorage('vote')->getQuery()
+    $uid = $this->currentUserService->id();
+    $storage = $this->entityTypeManager->getStorage('vote');
+
+    $query = $storage->getQuery()
       ->condition('field_vote_question', $question_id)
       ->condition('uid', $uid)
       ->accessCheck(FALSE)
@@ -154,8 +220,9 @@ class VotingForm extends FormBase {
       ->execute();
 
     if (!empty($query)) {
-      return $this->entityTypeManager->getStorage('vote')->load(reset($query));
+      return $storage->load(reset($query));
     }
+
     return NULL;
   }
 
@@ -163,12 +230,12 @@ class VotingForm extends FormBase {
    * Shows the user's vote and the overall results based on configuration.
    *
    * @param \Drupal\voting_system\Entity\VotingQuestion $question
-   * The question entity.
+   *   The question entity.
    * @param \Drupal\Core\Entity\EntityInterface $user_vote
-   * The vote entity belonging to the current user.
+   *   The vote entity belonging to the current user.
    *
    * @return array
-   * A render array with the message and optional results.
+   *   A render array with the message and optional results.
    */
   private function showResultsOrMessage(VotingQuestion $question, $user_vote): array {
     $build = [];
@@ -187,8 +254,11 @@ class VotingForm extends FormBase {
     $option_label = $voted_option ? (string) $voted_option->label() : (string) $this->t('Unknown option');
 
     // Display the personalized feedback.
+    $feedback_msg = '<strong>' . $this->t('You have already participated in this vote.') . '</strong><br>';
+    $feedback_msg .= $this->t('Your choice: @choice', ['@choice' => $option_label]);
+
     $build['user_feedback'] = [
-      '#markup' => '<div class="messages messages--status" style="margin-bottom: 20px;"><strong>' . $this->t('You have already participated in this vote.') . '</strong><br>' . $this->t('Your choice: @choice', ['@choice' => $option_label]) . '</div>',
+      '#markup' => '<div class="messages messages--status" style="margin-bottom: 20px;">' . $feedback_msg . '</div>',
     ];
 
     // Check configuration to determine if results should be shown.

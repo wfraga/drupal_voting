@@ -4,6 +4,7 @@ namespace Drupal\voting_api\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Configure global settings for the Voting System.
@@ -44,9 +45,17 @@ class VotingSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Save the new configuration.
     $this->config('voting_api.settings')
       ->set('global_voting_enabled', (bool) $form_state->getValue('global_voting_enabled'))
       ->save();
+
+    // Explicitly invalidate our API cache tags.
+    // This ensures that GET requests instantly reflect the new global status.
+    Cache::invalidateTags([
+      'voting_question_list',
+      'vote_list',
+    ]);
 
     parent::submitForm($form, $form_state);
   }

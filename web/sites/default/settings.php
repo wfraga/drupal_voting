@@ -256,7 +256,7 @@ $databases = [];
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = '/directory/outside/webroot';
+#$settings['config_sync_directory'] = '../config';
 
 /**
  * Settings:
@@ -904,4 +904,4 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
-$settings['config_sync_directory'] = 'sites/default/files/config_Sp9hHQbj-fOO8LRJcGN5FANnp7APvYClQbZ34g_04zvwqNncE15I2q7Bux3ayZELQxR9V5gl7w/sync';
+$settings['config_sync_directory'] = '../config';

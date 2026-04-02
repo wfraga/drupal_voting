@@ -1,0 +1,1 @@
+Copy these folder to /sites/default/files in order see the used images.

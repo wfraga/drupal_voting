@@ -29,10 +29,22 @@ lando start
 
 3. **Install Drupal (or import the provided dump):**
 ~~~bash
-lando drush site:install --db-url=mysql://drupal11:drupal11@database/drupal11
-# OR import the provided database dump:
-lando db-import database_dump.sql
+lando db-import resources/database_dump.sql
 ~~~
+
+---
+
+## CMS User Interface (Internal Voting)
+
+In addition to the headless API, the system provides a fully functional user interface within the Drupal admin theme, allowing authenticated internal users to participate in the polls.
+
+* **Voting Dashboard (`/admin/vote`)**: Displays a list of all currently active voting questions.
+* **Voting Form (`/admin/vote/{machine_name}`)**: The dynamic form where users cast their votes (e.g., `/admin/vote/qual_seu_time`).
+
+**Key UI Features:**
+* **Rich Media Support**: Displays associated images and descriptions for each option seamlessly using Drupal's Render API.
+* **Internal Vote Tracking**: Automatically identifies the logged-in user (`uid`) and enforces the strict "one vote per user" rule.
+* **Instant Results**: If the question is configured to display results, the UI instantly renders a visual progress bar with percentages and total vote counts immediately after a user casts their vote.
 
 ---
 
@@ -87,10 +99,14 @@ The module implements an `ApiKeySubscriber` to intercept requests to the `/api/`
 
 ---
 
-## Deliverables included in this Repository
+## Deliverables & Resources
 
-* **Database Dump**: A `database_dump.sql` file is included in the root directory to quickly spin up the environment with pre-configured questions, options, and a valid API Key.
-* **Postman Collection**: A `Voting_System_API.postman_collection.json` file is available for immediate testing of all external API endpoints.
+All essential files for evaluating and running this project are organized within the `/resources` directory:
+
+*   **Database Dump**: Located at `/resources/database_dump.sql`. This file allows you to quickly spin up the environment with pre-configured questions, options, and the required API Key.
+*   **Postman Collection**: Available at `/resources/postman/Votação API.postman_collection.json`. It includes all authenticated routes (GET and POST) ready for immediate testing.
+*   **Entity Images**: The original image assets used for the voting options are provided in `/resources/images`.
+    > **Note**: To display images correctly in the CMS and API, please copy the content of this folder to your Drupal installation's public files directory (typically `web/sites/default/files`).
 
 ---
 
